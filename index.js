@@ -5,25 +5,16 @@
 // })
 // console.log(io)
 
-const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
-const cors = require("cors");
-
+const http = require('http');
+const express = require('express');
+const socketio = require('socket.io');
+const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
-const PORT = process.env.PORT || 9000;
-
+const io = socketio(server);
 app.use(cors());
+const PORT = process.env.PORT || 9000
 
-// Create a Socket.io instance and attach it to the server
-const io = socketIo(server, {
-  cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"],
-    credentials: true
-  }
-});
 
 let users = [];
 const addUser = (userId,socketId) => {
@@ -40,7 +31,7 @@ const getUser = (userId) => {
     return users.find((user) => user.userId === userId);
   };
 
-io.on("connection", (socket) => {
+io.on('connect', (socket)=> {
     //when connect
     console.log("a user connected")
     socket.on("addUser", (userId) => {
@@ -70,6 +61,3 @@ app.get("/", (req, res) => {
     res.send("socket io is running");
   });
 
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
