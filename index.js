@@ -19,7 +19,7 @@ app.use(cors());
 // Create a Socket.io instance and attach it to the server
 const io = socketIo(server, {
   cors: {
-    origin: ["http://localhost:5173", "http://localhost:5174" , "https://soulmate-matrimony.netlify.app/", "https://soulmate-matrimy.netlify.app/" , "https://soulmate-matrimony.netlify.app/", "https://soulmate-matrimony.netlify.app/"],
+    origin: ["https://soulmate-matrimony.netlify.app/", "https://soulmate-matrimony.netlify.app/"],
     methods: ["GET", "POST"],
     credentials: true
   }
