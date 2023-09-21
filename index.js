@@ -57,12 +57,16 @@ io.on('connect', (socket)=> {
 
     //send and get message
     socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-        const user = getUser(receiverId);
+      const user = getUser(receiverId);
+      if (user && user.socketId) {
         io.to(user.socketId).emit("getMessage", {
           senderId,
           text,
         });
-      })
+      } else {
+        console.log("user not found")
+      }
+    });
 
 } )
 
